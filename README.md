@@ -10,7 +10,7 @@
 
 **GitHub Pages で公開後のURL:**
 ```
-https://<your-github-username>.github.io/takebon-portfolio/
+https://takenokodesign.github.io/takebon-portfolio/
 ```
 
 ---
