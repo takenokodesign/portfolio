@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>竹中 明教 | Strategic Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1B4FD8;
+    --blue-light: #3B6FF0;
+    --blue-pale: #E8EEFF;
+    --blue-mid: #96AEEF;
+    --ink: #1A1A22;
+    --ink-mid: #3A3A4A;
+    --ink-light: #6A6A7A;
+    --paper: #FAFAF8;
+    --paper-warm: #F5F3EE;
+    --rule: #E2E0D8;
+    --white: #FFFFFF;
+    --serif: 'Noto Serif JP', 'Cormorant Garamond', serif;
+    --sans: 'Noto Sans JP', sans-serif;
+    --display: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(27,79,216,0.06); }
+
+  .nav-brand {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+  .nav-brand span { color: var(--blue); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--ink-mid);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 8rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--blue);
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+  }
+  .hero-name .en {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: var(--ink-light);
+    font-weight: 300;
+    display: block;
+    letter-spacing: 0.06em;
+    margin-top: 0.3rem;
+  }
+
+  .hero-title {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    margin-bottom: 2.5rem;
+    padding-left: 2px;
+  }
+
+  .hero-tagline {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 2;
+    color: var(--ink-mid);
+    max-width: 480px;
+    margin-bottom: 3rem;
+    border-left: 2px solid var(--blue);
+    padding-left: 1.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--blue);
+    color: white;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--blue); color: white; }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-graphic {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--blue-pale) 0%, #dce7ff 40%, #c8d8ff 100%);
+  }
+
+  .hero-graphic::before {
+    content: '';
+    position: absolute;
+    top: 10%; right: 8%;
+    width: 340px; height: 340px;
+    border: 1px solid rgba(27,79,216,0.15);
+    border-radius: 50%;
+  }
+  .hero-graphic::after {
+    content: '';
+    position: absolute;
+    bottom: 15%; left: 10%;
+    width: 180px; height: 180px;
+    border: 1px solid rgba(27,79,216,0.2);
+    border-radius: 50%;
+  }
+
+  .hero-stat-block {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 3rem;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(27,79,216,0.12);
+    padding: 1.6rem 2rem;
+    width: 280px;
+    opacity: 0;
+    transform: translateX(30px);
+    animation: fadeInRight 0.7s ease forwards;
+  }
+  .stat-card:nth-child(2) { animation-delay: 0.15s; margin-left: 2rem; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes fadeInRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .stat-number {
+    font-family: var(--display);
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .stat-label {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+  }
+  .stat-sub {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    margin-top: 0.5rem;
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 8rem 0; }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  .section-header {
+    margin-bottom: 5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 3rem;
+    align-items: start;
+  }
+  .section-num {
+    font-family: var(--display);
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--blue-pale);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    user-select: none;
+    border-right: 1px solid var(--rule);
+    padding-right: 2rem;
+    margin-right: 1rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+  .section-title .en {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 0.7em;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+  }
+  .section-lead {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--ink-mid);
+    max-width: 560px;
+    margin-top: 1rem;
+    line-height: 2;
+  }
+
+  /* ── VALUE PROPOSITION ── */
+  .value-section { background: var(--white); }
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .value-card {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .value-card:last-child { border-right: none; }
+  .value-card:hover { background: var(--blue-pale); }
+
+  .value-num {
+    font-family: var(--display);
+    font-size: 3rem;
+    color: var(--blue);
+    opacity: 0.2;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .value-icon {
+    width: 40px;
+    height: 1px;
+    background: var(--blue);
+    margin-bottom: 1.5rem;
+  }
+  .value-head {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .value-body {
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    color: var(--ink-light);
+    line-height: 1.9;
+  }
+
+  /* ── EXPERIENCE TIMELINE ── */
+  .experience-section { background: var(--paper-warm); }
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--blue), var(--rule));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 4rem 3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateY(0); }
+
+  .timeline-dot {
+    position: absolute;
+    left: -5px; top: 6px;
+    width: 10px; height: 10px;
+    background: var(--blue);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--paper-warm), 0 0 0 4px var(--blue-mid);
+  }
+  .timeline-dot.current { background: var(--blue); animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 3px var(--paper-warm), 0 0 0 4px var(--blue-mid); }
+    50% { box-shadow: 0 0 0 3px var(--paper-warm), 0 0 0 8px rgba(27,79,216,0.2); }
+  }
+
+  .timeline-period {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.5rem;
+  }
+  .timeline-company {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  .timeline-role {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .timeline-desc {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    line-height: 1.9;
+    max-width: 680px;
+    margin-bottom: 1.2rem;
+  }
+  .timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tag {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    border: 1px solid var(--blue-mid);
+    padding: 0.25rem 0.7rem;
+    background: rgba(27,79,216,0.04);
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements-section { background: var(--white); }
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--rule);
+  }
+  .award-card {
+    background: var(--white);
+    padding: 2.5rem 3rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    transition: background 0.3s;
+  }
+  .award-card:hover { background: var(--blue-pale); }
+  .award-year {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--blue);
+    line-height: 1;
+    min-width: 60px;
+  }
+  .award-content {}
+  .award-title {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+  }
+  .award-org {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+  }
+  .award-badge {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--blue);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  /* ── SKILLS MAP ── */
+  .skills-section { background: var(--paper); }
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .skill-group { margin-bottom: 2.5rem; }
+  .skill-group-title {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .skill-group-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .skill-name {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    min-width: 180px;
+  }
+  .skill-bar-track {
+    flex: 1;
+    height: 2px;
+    background: var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--blue);
+    width: 0;
+    transition: width 1.2s ease;
+  }
+  .skill-bar-fill.animated { width: var(--w); }
+
+  /* philosophy box */
+  .philosophy-box {
+    background: var(--blue);
+    padding: 3rem;
+    color: white;
+    position: sticky;
+    top: 100px;
+  }
+  .philosophy-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.5rem;
+  }
+  .philosophy-quote {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 2.1;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 2rem;
+  }
+  .philosophy-quote em {
+    font-style: normal;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+  }
+  .philosophy-name {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── MISSION MATCH ── */
+  .match-section {
+    background: var(--ink);
+    color: white;
+    padding: 8rem 0;
+  }
+  .match-section .section-title { color: white; }
+  .match-section .section-title .en { color: rgba(255,255,255,0.4); }
+  .match-section .section-num { color: rgba(27,79,216,0.3); border-color: rgba(255,255,255,0.1); }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-top: 4rem;
+  }
+  .match-col {
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .match-col-head {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .match-col.company .match-col-head { color: var(--blue-mid); }
+  .match-col.candidate .match-col-head { color: #90EE90; }
+
+  .match-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+  .match-dot {
+    width: 6px; height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+  }
+  .match-col.candidate .match-dot { background: #90EE90; }
+  .match-text {
+    font-family: var(--serif);
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+  }
+  .match-text strong { color: white; font-weight: 500; }
+
+  .match-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    gap: 1rem;
+  }
+  .match-arrow {
+    font-size: 1.2rem;
+    color: var(--blue);
+    opacity: 0.7;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--paper-warm);
+    text-align: center;
+  }
+  .contact-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .contact-sub {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--ink-mid);
+    line-height: 2;
+    margin-bottom: 3rem;
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  .contact-line {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-mid);
+  }
+  .contact-line a { color: var(--blue); text-decoration: none; }
+  .contact-line a:hover { text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+  }
+  .footer-copy {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up-d1 { transition-delay: 0.1s; }
+  .fade-up-d2 { transition-delay: 0.2s; }
+  .fade-up-d3 { transition-delay: 0.3s; }
+
+  /* ── HERO FADE IN ── */
+  .hero-left > * {
+    opacity: 0;
+    animation: heroFadeIn 0.8s ease forwards;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HORIZONTAL RULE DECOR ── */
+  .rule-decor {
+    width: 60px;
+    height: 1px;
+    background: var(--blue);
+    margin: 2rem auto;
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 5rem 2rem 3rem; }
+    .hero-right { display: none; }
+    .value-grid { grid-template-columns: 1fr; }
+    .value-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .skills-layout { grid-template-columns: 1fr; }
+    .awards-grid { grid-template-columns: 1fr; }
+    .match-grid { grid-template-columns: 1fr; }
+    .match-center { display: none; }
+    nav { padding: 1rem 2rem; }
+    .container { padding: 0 2rem; }
+    section { padding: 5rem 0; }
+    .hero-left { padding: 4rem 2rem 3rem; }
+    .section-header { grid-template-columns: 1fr; }
+    .section-num { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-brand">竹中 明教 <span>Portfolio</span></a>
+  <ul class="nav-links">
+    <li><a href="#value">強み</a></li>
+    <li><a href="#experience">経歴</a></li>
+    <li><a href="#achievements">受賞</a></li>
+    <li><a href="#match">貢献</a></li>
+    <li><a href="#contact">連絡</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Strategic Design Portfolio</div>
+    <h1 class="hero-name">
+      竹中 明教
+      <span class="en">Akinori Takenaka</span>
+    </h1>
+    <p class="hero-title">Business Strategist &nbsp;/&nbsp; HCD Expert &nbsp;/&nbsp; Innovation Leader</p>
+    <p class="hero-tagline">
+      「人間中心設計」と「生成AI」を統合し、<br>
+      新規事業の構想から組織変革までを<br>
+      一気通貫で実装するビジネスストラテジスト。
+    </p>
+    <div class="hero-cta">
+      <a href="#match" class="btn-primary">AlphaDriveへの貢献 →</a>
+      <a href="#experience" class="btn-secondary">キャリアを見る</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-graphic"></div>
+    <div class="hero-stat-block">
+      <div class="stat-card">
+        <div class="stat-number">16+</div>
+        <div class="stat-label">Years of Experience</div>
+        <div class="stat-sub">製造・医療・ITインフラ領域での事業創造</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">7×</div>
+        <div class="stat-label">Award Winning</div>
+        <div class="stat-sub">Wemake・グッドデザイン賞・日特BX Award</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">30%</div>
+        <div class="stat-label">Process Efficiency Up</div>
+        <div class="stat-sub">AI×HCDで要件定義工数を大幅削減</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROPOSITION -->
+<section class="value-section" id="value">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-num">01</div>
+      <div>
+        <h2 class="section-title">
+          <span class="en">Core Value</span>
+          3つのコアバリュー
+        </h2>
+        <p class="section-lead">AlphaDriveの「人づくり・文化づくり」のフィロソフィーと深く共鳴する、私固有の強みの掛け合わせ。</p>
+      </div>
+    </div>
+
+    <div class="value-grid">
+      <div class="value-card fade-up">
+        <div class="value-num">01</div>
+        <div class="value-icon"></div>
+        <h3 class="value-head">大企業の壁を突破した<br>「実践的翻訳者」</h3>
+        <p class="value-body">日本特殊陶業での新規事業PO経験により、大企業特有の稟議・組織の壁を内部から熟知。同時にWemakeで外部から7回受賞した「両面の実践者」として、大企業とスタートアップの非対称性を橋渡しする。</p>
+      </div>
+      <div class="value-card fade-up fade-up-d1">
+        <div class="value-num">02</div>
+        <div class="value-icon"></div>
+        <h3 class="value-head">「人間中心設計（HCD）」による<br>事業化メンタリング</h3>
+        <p class="value-body">HCD-Net認定専門家として、シーズ志向に陥りがちな新規事業開発を「ユーザー価値」に引き戻す。PoCで終わらせず、コンバージョン率4.6%を実証したP&L意識の事業開発を伴走する。</p>
+      </div>
+      <div class="value-card fade-up fade-up-d2">
+        <div class="value-num">03</div>
+        <div class="value-icon"></div>
+        <h3 class="value-head">顧客の自走を促す<br>「組織開発・仕組み化」</h3>
+        <p class="value-body">ティール組織・ホラクラシー型組織への移行支援、AIワークショップ標準化など、属人的成功を「組織の仕組み」へ落とし込む実績。AlphaDriveが求める「100億規模の事業を生む組織文化」を設計できる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section" id="experience">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-num">02</div>
+      <div>
+        <h2 class="section-title">
+          <span class="en">Career Journey</span>
+          キャリアの軌跡
+        </h2>
+        <p class="section-lead">16年以上にわたる製造・医療・ITインフラ領域での実践が、新規事業支援の「再現性」を生む。</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot current"></div>
+        <div class="timeline-period">2025年4月 ─ 現在</div>
+        <div class="timeline-company">キンドリルジャパン株式会社</div>
+        <div class="timeline-role">デザインストラテジー担当部長 / Associate Director</div>
+        <p class="timeline-desc">
+          大手エンタープライズ企業（製造・金融・通信等）に対し、AI×共創×HCDを統合した変革戦略を立案・伴走。
+          Value Stream MappingとAIを統合し、<strong>要件定義工数30%削減</strong>を実現。
+          年間10回以上の共創型ワークショップを設計・ファシリテーションし、経営層・IT・現場の認識ギャップを解消。
+          「DesignShip2025」登壇および2026年6月HCD学会での論文発表予定。
+        </p>
+        <div class="timeline-tags">
+          <span class="tag">AI×HCD</span>
+          <span class="tag">デザインシンキング</span>
+          <span class="tag">ワークショップ設計</span>
+          <span class="tag">BPR</span>
+          <span class="tag">エンタープライズDX</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">2022年8月 ─ 2025年3月</div>
+        <div class="timeline-company">日本特殊陶業株式会社</div>
+        <div class="timeline-role">Niterra Ventures メディカルビジネス部 主管（新規事業PO）</div>
+        <p class="timeline-desc">
+          ヘルスケア・医療機器のゼロイチ新規事業創出をプロダクトオーナーとして牽引。
+          アジャイル開発×HCDプロセスにより<strong>コンバージョン率4.6%</strong>という高い事業性を実証。
+          ホラクラシー型組織の構築・運用で1年間ボトムアップ型自走文化を定着。
+          社内初のレンタル移籍制度で大阪万博バーチャルプロジェクトのクリエイティブディレクションも担当。
+        </p>
+        <div class="timeline-tags">
+          <span class="tag">新規事業PO</span>
+          <span class="tag">PMF検証</span>
+          <span class="tag">ホラクラシー組織</span>
+          <span class="tag">医療機器</span>
+          <span class="tag">アジャイル</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">2018年9月 ─ 2022年7月</div>
+        <div class="timeline-company">株式会社ドリーム（愛知県）</div>
+        <div class="timeline-role">企画部門 サーバントチーフ / 新規ブランド事業責任者</div>
+        <p class="timeline-desc">
+          新規ブランド立ち上げの事業責任者として「売れる仕組みづくり」を統括。
+          Makuakeでのクラウドファンディングで<strong>売上500万円超</strong>を達成し量産化を確立。
+          ティール組織移行期のチェンジマネジメントとして全社MVV策定ワークショップをファシリテート。
+          経営方針を「ブランドパーパス」と「KPIツリー」へ翻訳し、全社合意形成の仕組みをゼロから構築。
+        </p>
+        <div class="timeline-tags">
+          <span class="tag">事業責任者</span>
+          <span class="tag">ティール組織</span>
+          <span class="tag">ブランド戦略</span>
+          <span class="tag">クラウドファンディング</span>
+          <span class="tag">MVV策定</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">2006年1月 ─ 2018年8月</div>
+        <div class="timeline-company">株式会社MRD</div>
+        <div class="timeline-role">デザインリード（主任7年 / 課長相当2年）</div>
+        <p class="timeline-desc">
+          メーカー一次請けとして、プロダクトデザイン企画から量産デリバリーまでの全工程を経験。
+          体験（操作性）と製造（量産性）を高度に両立する企画デザインでコンペ採用を継続獲得。
+          OJT・独自ワークショップ・社内講義を通じた人材育成プログラムを構築・運用。
+        </p>
+        <div class="timeline-tags">
+          <span class="tag">プロダクトデザイン</span>
+          <span class="tag">チームリード</span>
+          <span class="tag">人材育成</span>
+          <span class="tag">量産設計</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements-section" id="achievements">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-num">03</div>
+      <div>
+        <h2 class="section-title">
+          <span class="en">Awards & Recognition</span>
+          受賞・表彰歴
+        </h2>
+        <p class="section-lead">Wemake共創プラットフォームでの連続受賞は、オープンイノベーションの「勝ち筋」を体得した実践者の証明。</p>
+      </div>
+    </div>
+
+    <div class="awards-grid fade-up">
+
+      <div class="award-card">
+        <div class="award-year">2026</div>
+        <div class="award-content">
+          <div class="award-title">Wemake 優秀賞<span class="award-badge">OI Platform</span></div>
+          <div class="award-org">マザーサンヤチヨ・オートモーティブシステムズ株式会社主催 ／「星空に、泊まる」体験型コンテンツ</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2025</div>
+        <div class="award-content">
+          <div class="award-title">日特BX Award 最優秀賞（社長賞）<span class="award-badge">Best</span></div>
+          <div class="award-org">日本特殊陶業 ／ 有志チームでWemake共創活動を牽引・複数案件で最優秀賞獲得</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2025</div>
+        <div class="award-content">
+          <div class="award-title">Wemake 特別賞（東急建設）</div>
+          <div class="award-org">「もしモフケア」ペット専用災害支援パッケージ ／ 熱意と活動量が高く評価</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2025</div>
+        <div class="award-content">
+          <div class="award-title">Wemake 特別賞（能美防災）</div>
+          <div class="award-org">防災教育コンテンツ提供ビジネス ／ 体験者の声を活かしたコンテンツ拡充の発想が高評価</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2024</div>
+        <div class="award-content">
+          <div class="award-title">Wemake 最優秀賞<span class="award-badge">Best</span></div>
+          <div class="award-org">株式会社マンダム主催 ／ アンチエイジングガジェット「Echoes Cure」</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2022</div>
+        <div class="award-content">
+          <div class="award-title">グッドデザイン賞 ／ Wemake 優秀賞（ニフコ）</div>
+          <div class="award-org">高齢者のペインポイントを専門家知見で解決した新規事業企画が2冠</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2020</div>
+        <div class="award-content">
+          <div class="award-title">グッドデザイン賞</div>
+          <div class="award-org">大学共同開発・理学療法専門性を活かしたプロダクト ／「業界をけん引するリーダー」と講評</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-year">2025</div>
+        <div class="award-content">
+          <div class="award-title">認定スクラムマスター取得</div>
+          <div class="award-org">アジャイル開発の実践知を資格として体系化。TOEIC 615点（ビジネス会話レベル）</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-num">04</div>
+      <div>
+        <h2 class="section-title">
+          <span class="en">Expertise Map</span>
+          スキルマップ
+        </h2>
+      </div>
+    </div>
+
+    <div class="skills-layout">
+      <div>
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">新規事業開発</div>
+          <div class="skill-item">
+            <span class="skill-name">事業構想・PMF検証</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">プロダクトオーナー</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">アジャイル / スクラム</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">P&L管理・事業計画</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:80%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group fade-up fade-up-d1">
+          <div class="skill-group-title">人間中心設計 / UX</div>
+          <div class="skill-item">
+            <span class="skill-name">HCD（ISO 9241-210）</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">UXリサーチ・ペルソナ設計</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:92%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">サービスデザイン</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">プロトタイピング</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:85%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group fade-up fade-up-d2">
+          <div class="skill-group-title">組織開発 / ファシリテーション</div>
+          <div class="skill-item">
+            <span class="skill-name">ワークショップ設計</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">ティール/ホラクラシー組織</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">AI × DX導入伴走</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">MVV・パーパス策定</span>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:82%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="philosophy-box fade-up">
+          <div class="philosophy-label">Design Philosophy</div>
+          <p class="philosophy-quote">
+            事業づくりとは、<em>プロダクトを生むこと</em>以上に、<br>
+            それを生み出す<em>人をつくり、文化をつくる</em>ことだ。<br>
+            私はHCDを道具として、<em>顧客の課題の解像度</em>を<br>
+            極限まで高め、組織の自走を促す。
+          </p>
+          <div class="philosophy-name">竹中 明教 / Akinori Takenaka</div>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 2rem; border: 1px solid var(--rule); background: white;" class="fade-up fade-up-d1">
+          <div class="skill-group-title" style="font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 1rem;">Education & Cert</div>
+          <p style="font-family: var(--serif); font-size: 0.88rem; color: var(--ink-mid); line-height: 2;">
+            名古屋市立大学 芸術工学部<br>
+            視覚情報デザイン学科 卒業（2004）<br>
+            <br>
+            HCD-Net認定専門家<br>
+            認定スクラムマスター（2025）<br>
+            TOEIC 615点（ビジネス会話）
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION MATCH -->
+<section class="match-section" id="match">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-num">05</div>
+      <div>
+        <h2 class="section-title">
+          <span class="en">Why AlphaDrive</span>
+          AlphaDriveへの貢献
+        </h2>
+        <p class="section-lead" style="color: rgba(255,255,255,0.6);">
+          「大企業の論理を内部から突破した社内起業家」として、AlphaDriveが求めるインキュベーションリードの役割と私の経験は深く共鳴する。
+        </p>
+      </div>
+    </div>
+
+    <div class="match-grid fade-up">
+      <div class="match-col company">
+        <div class="match-col-head">AlphaDrive が求めるもの</div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>大企業内での新規事業推進・撤退の実践知</strong><br>「自ら社内の壁を越えてきた事業開発家」としての経験</div>
+        </div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>「多産多死」を回す顧客検証プロセス</strong><br>「顧客のところに300回行け」という泥臭い伴走スタンス</div>
+        </div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>人づくり・組織づくりのケイパビリティ</strong><br>事業づくりは文化づくりというフィロソフィーの実践者</div>
+        </div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>再現性ある100億規模事業の創出支援</strong><br>属人的ノウハウをフレームワーク化できる知見</div>
+        </div>
+      </div>
+
+      <div class="match-center">
+        <div class="match-arrow">↑</div>
+        <div style="font-family: var(--display); font-size: 1.8rem; color: var(--blue); writing-mode: vertical-rl; letter-spacing: 0.1em; opacity: 0.6;">MATCH</div>
+        <div class="match-arrow">↓</div>
+      </div>
+
+      <div class="match-col candidate">
+        <div class="match-col-head">竹中 明教 が持つもの</div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>日本特殊陶業でのプロダクトオーナー経験</strong><br>大企業内でゼロイチ事業を推進し、役員ボードの承認を獲得した当事者</div>
+        </div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>HCD専門家としてのUXリサーチスキル</strong><br>「ユーザーのところに300回行く」ためのメソッドを体系的に持つ</div>
+        </div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>ティール組織・ホラクラシー型組織の実装経験</strong><br>ドリーム社・日本特殊陶業での組織変革と仕組み化の実績</div>
+        </div>
+        <div class="match-item">
+          <div class="match-dot"></div>
+          <div class="match-text"><strong>AIワークショップ標準化で工数30%削減</strong><br>キンドリルでの属人的ノウハウのフレームワーク化の実績</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 4rem; text-align: center;" class="fade-up">
+      <div style="font-family: var(--serif); font-size: 1.2rem; color: rgba(255,255,255,0.7); line-height: 2; max-width: 680px; margin: 0 auto; padding: 2.5rem; border: 1px solid rgba(27,79,216,0.3); background: rgba(27,79,216,0.08);">
+        「大企業の論理を内部で突破してきた社内起業家としての泥臭い経験」と「HCDで顧客課題の解像度を極限まで高める検証スキル」と「ティール組織などの仕組み化ノウハウ」を掛け合わせ、<br><br>
+        <strong style="color: white;">『100億円規模の事業を生み出すための、再現性のある組織・文化づくりに貢献したい。』</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="section-header fade-up" style="grid-template-columns: 1fr; text-align: center;">
+        <div>
+          <h2 class="section-title" style="text-align: center;">
+            <span class="en">Get in Touch</span>
+            お問い合わせ
+          </h2>
+        </div>
+      </div>
+      <div class="rule-decor"></div>
+      <p class="contact-sub fade-up">
+        カジュアル面談・面接のご連絡をお待ちしております。<br>
+        HCDと組織開発を掛け合わせた新規事業支援について、<br>ぜひ直接お話しさせてください。
+      </p>
+      <div class="contact-info fade-up">
+        <div class="contact-line">
+          <strong>Email：</strong>
+          <a href="mailto:takebon.planning@gmail.com">takebon.planning@gmail.com</a>
+        </div>
+        <div class="contact-line">
+          <strong>Phone：</strong>080-9720-2268
+        </div>
+        <div class="contact-line">
+          <strong>Location：</strong>愛知県名古屋市名東区（名古屋在住）
+        </div>
+      </div>
+      <div class="fade-up">
+        <a href="mailto:takebon.planning@gmail.com" class="btn-primary">面談を申し込む →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">竹中 明教 Portfolio — 2026</div>
+  <div class="footer-copy">Strategic Design × HCD × AI-Driven Innovation</div>
+</footer>
+
+<script>
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up, .timeline-item').forEach(el => observer.observe(el));
+
+// Skill bars
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.classList.add('animated');
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.skill-group').forEach(el => skillObserver.observe(el));
+
+// Smooth nav
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
