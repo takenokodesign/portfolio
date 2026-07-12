@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>竹中 明教 | Redesigning Myself — Case Study 04</title>
+<meta name="description" content="デザイナーとして培った問題解決の型を、自分自身のキャリアという対象に適用する。AI時代における価値転換の思考プロセス。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+
+  :root { --accent:#E8FF47; --fg:#f5f5f5; --bg-dark:#090909; --bg-light:#f0ede8; --fg-dark:#0a0a0a; --mid:#888; --border:rgba(255,255,255,0.08); }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg-dark);color:var(--fg);font-family:'Noto Sans JP',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+  .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;}
+  .cursor-trail{position:fixed;width:40px;height:40px;border:1px solid rgba(232,255,71,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .15s ease,top .15s ease;}
+  .cursor.expand{width:28px;height:28px;opacity:.5;}
+  ::-webkit-scrollbar{width:3px;} ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+  .hamburger{position:fixed;top:28px;left:28px;z-index:1000;width:40px;height:40px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:8px;background:transparent;border:none;}
+  .hamburger span{display:block;height:1px;background:var(--fg);transform-origin:left;transition:transform .4s cubic-bezier(.23,1,.32,1),opacity .3s,width .3s;}
+  .hamburger span:nth-child(1){width:24px;} .hamburger span:nth-child(2){width:16px;} .hamburger span:nth-child(3){width:20px;}
+  .hamburger.open span:nth-child(1){transform:rotate(45deg) translateY(-1px);width:24px;}
+  .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+  .hamburger.open span:nth-child(3){transform:rotate(-45deg) translateY(1px);width:24px;}
+  .sidenav{position:fixed;top:0;left:0;width:260px;height:100vh;background:rgba(9,9,9,0.97);backdrop-filter:blur(20px);z-index:900;padding:100px 40px 40px;transform:translateX(-100%);transition:transform .5s cubic-bezier(.23,1,.32,1);border-right:1px solid var(--border);}
+  .sidenav.open{transform:translateX(0);}
+  .sidenav ul{list-style:none;} .sidenav ul li{margin-bottom:8px;}
+  .sidenav ul li a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:12px;padding:8px 0;transition:color .3s;}
+  .sidenav ul li a .nav-num{color:var(--accent);font-size:9px;}
+  .sidenav ul li a:hover,.sidenav ul li a.active{color:var(--fg);}
+  .nav-disabled{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;display:flex;align-items:center;gap:12px;padding:8px 0;color:rgba(255,255,255,0.2);cursor:default;user-select:none;}
+  .nav-disabled .nav-num{color:rgba(232,255,71,0.2);}
+  .sidenav-footer{position:absolute;bottom:40px;left:40px;font-size:10px;color:var(--mid);letter-spacing:.1em;font-family:'DM Mono',monospace;}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:800;opacity:0;pointer-events:none;transition:opacity .5s;}
+  .overlay.visible{opacity:1;pointer-events:all;}
+  .progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9990;width:0%;}
+  .logo{position:fixed;top:24px;right:32px;z-index:800;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--mid);text-transform:uppercase;text-decoration:none;}
+  .color-switcher{position:fixed;bottom:32px;right:32px;z-index:800;display:flex;gap:8px;}
+  .color-dot{width:12px;height:12px;border-radius:50%;cursor:pointer;transition:transform .2s;border:1px solid rgba(255,255,255,.2);}
+  .color-dot:hover{transform:scale(1.3);} .color-dot.active{border-color:white;transform:scale(1.2);}
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s cubic-bezier(.23,1,.32,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:64px;display:flex;align-items:center;gap:16px;}
+  .section-label::before{content:'';display:block;width:40px;height:1px;background:var(--accent);}
+
+  section{padding:120px 80px;border-top:1px solid var(--border);}
+
+  /* HERO */
+  #home{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 80px 80px;position:relative;overflow:hidden;background:var(--bg-dark);border-top:none;}
+  #home::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:80px 80px;pointer-events:none;}
+  #home::after{content:'';position:absolute;bottom:-120px;left:-80px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(232,255,71,.07) 0%,transparent 70%);pointer-events:none;}
+  .hero-tag{position:relative;z-index:2;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fadeUp 1s .5s forwards;}
+  .hero-title{position:relative;z-index:2;font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7.5vw,100px);font-weight:300;line-height:.95;letter-spacing:-.02em;opacity:0;animation:fadeUp 1s .7s forwards;}
+  .hero-title em{font-style:italic;color:var(--accent);}
+  .hero-sub{position:relative;z-index:2;margin-top:32px;max-width:560px;font-size:13px;line-height:1.9;color:rgba(255,255,255,.55);opacity:0;animation:fadeUp 1s .9s forwards;}
+  .hero-scroll{position:absolute;bottom:80px;right:80px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeIn 1s 1.5s forwards;}
+  .hero-scroll span{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--mid);writing-mode:vertical-rl;}
+  .scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollPulse 2s ease infinite;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes scrollPulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  /* QUESTION */
+  .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:1200px;}
+  .q-big{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.2vw,56px);font-weight:300;line-height:1.25;letter-spacing:-.02em;border-right:1px solid var(--border);padding-right:80px;}
+  .q-big em{font-style:italic;color:var(--accent);}
+  .q-right{padding-left:80px;display:flex;flex-direction:column;justify-content:center;}
+  .q-body{font-size:14px;line-height:2;color:rgba(255,255,255,.55);margin-bottom:20px;max-width:400px;}
+  .keywords{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .keyword{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;border:1px solid var(--border);padding:6px 14px;border-radius:100px;color:var(--mid);text-transform:uppercase;transition:border-color .3s,color .3s;cursor:default;}
+  .keyword:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* METHOD / CAPABILITY GRID */
+  #method{background:rgba(255,255,255,.02);}
+  .method-intro{max-width:640px;margin-bottom:72px;}
+  .method-intro h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;line-height:1.3;margin-bottom:20px;}
+  .method-intro h2 em{font-style:italic;color:var(--accent);}
+  .method-intro p{font-size:14px;line-height:2;color:rgba(255,255,255,.5);}
+  .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);max-width:1000px;}
+  .cap-cell{background:var(--bg-dark);padding:40px;}
+  #method .cap-cell{background:#0d0d0c;}
+  .cap-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;margin-bottom:16px;}
+  .cap-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:12px;}
+  .cap-body{font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.5);}
+
+  /* ROADMAP */
+  .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:1200px;border-top:1px solid var(--border);}
+  .tl-item{padding:40px 32px 0;border-right:1px solid var(--border);position:relative;}
+  .tl-item:last-child{border-right:none;}
+  .tl-item::before{content:'';position:absolute;top:-1px;left:0;width:40px;height:2px;background:var(--accent);}
+  .tl-stage{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:20px;}
+  .tl-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:14px;line-height:1.25;}
+  .tl-body{font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.45);}
+
+  /* PROOF */
+  #proof{background:var(--bg-light);color:var(--fg-dark);}
+  #proof .section-label{color:#888;} #proof .section-label::before{background:#888;}
+  .proof-intro{max-width:640px;margin-bottom:56px;}
+  .proof-intro h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;line-height:1.3;}
+  .proof-intro p{font-size:14px;line-height:2;color:#555;margin-top:16px;max-width:480px;}
+  .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1200px;}
+  .proof-cell{padding:28px;background:white;border:1px solid #e8e5e0;}
+  .proof-cell.dark{background:#0a0a0a;border-color:#0a0a0a;}
+  .proof-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:#888;text-transform:uppercase;margin-bottom:10px;}
+  .proof-cell.dark .proof-label{color:#555;}
+  .proof-val{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:#0a0a0a;line-height:1.15;}
+  .proof-cell.dark .proof-val{color:#f5f5f5;}
+  .proof-sub{font-size:11px;color:#888;margin-top:6px;line-height:1.6;}
+  .proof-cell.dark .proof-sub{color:#666;}
+
+  /* CLOSING */
+  #closing{min-height:55vh;display:flex;flex-direction:column;justify-content:center;}
+  .closing-big{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6.5vw,88px);font-weight:300;letter-spacing:-.02em;line-height:1.05;margin-bottom:28px;}
+  .closing-big em{font-style:italic;color:var(--accent);}
+  .closing-body{font-size:14px;line-height:2;color:rgba(255,255,255,.5);max-width:520px;margin-bottom:40px;}
+  .closing-links{display:flex;gap:32px;flex-wrap:wrap;}
+  .closing-link{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px;transition:border-color .3s,color .3s;}
+  .closing-link:hover{border-color:var(--accent);color:var(--accent);}
+
+  footer{padding:32px 80px;background:var(--bg-dark);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  footer p{font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);letter-spacing:.1em;}
+  footer a{color:var(--mid);text-decoration:none;transition:color .2s;}
+  footer a:hover{color:var(--accent);}
+
+  @media (max-width:900px){
+    section{padding:80px 28px;}
+    #home{padding:0 28px 60px;}
+    .q-grid,.cap-grid,.proof-grid{grid-template-columns:1fr;}
+    .q-big{border-right:none;border-bottom:1px solid var(--border);padding-right:0;padding-bottom:32px;}
+    .q-right{padding-left:0;padding-top:32px;}
+    .tl{grid-template-columns:1fr;}
+    .tl-item{border-right:none;border-bottom:1px solid var(--border);padding-bottom:32px;margin-bottom:8px;}
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+<div class="progress-bar" id="progressBar"></div>
+<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+<nav class="sidenav" id="sidenav"><ul>
+    <li><a href="index.html"><span class="nav-num">01</span> Home</a></li>
+    <li><a href="index.html#philosophy"><span class="nav-num">02</span> Philosophy</a></li>
+    <li><a href="takebon_profile.html"><span class="nav-num">03</span> Profile</a></li>
+    <li><a href="index.html#contact"><span class="nav-num">05</span> Contact</a></li>
+    <li><a href="strategy.html" class="active"><span class="nav-num">04</span> Projects</a></li>
+  </ul><div class="sidenav-footer">TAKEBON &copy; 2026</div></nav>
+<div class="overlay" id="overlay"></div>
+<a href="index.html" class="logo">TAKEBON</a>
+<div class="color-switcher">
+  <div class="color-dot active" style="background:#E8FF47" data-color="#E8FF47"></div>
+  <div class="color-dot" style="background:#FF6B35" data-color="#FF6B35"></div>
+  <div class="color-dot" style="background:#00F5FF" data-color="#00F5FF"></div>
+  <div class="color-dot" style="background:#B8FF8C" data-color="#B8FF8C"></div>
+  <div class="color-dot" style="background:#FF8EFF" data-color="#FF8EFF"></div>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <p class="hero-tag">Case Study 04 — Self as the Subject</p>
+  <h1 class="hero-title">REDESIGNING<br><em>MYSELF</em></h1>
+  <p class="hero-sub">20年間、企業やクライアントの課題に向き合うために磨いてきた問題解決の型を、最も曖昧で複雑な対象——自分自身のキャリア——に適用してみた。デザイナーから経営人材へ。これはその思考プロセスの記録である。</p>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<!-- THE QUESTION -->
+<section id="question">
+  <div class="section-label">01 — The Question</div>
+  <div class="q-grid reveal">
+    <div class="q-big">なぜいま、<br>自分を<em>再設計</em><br>するのか。</div>
+    <div class="q-right">
+      <p class="q-body">生成AIが価格破壊するのは「実行としてのデザイン」だ。プロトタイピング、UI制作、一次リサーチ——これらは急速にコモディティ化していく。</p>
+      <p class="q-body">一方で代替されないのは、問いそのものを定義し、集めた情報から組織に意思決定させ、実行体制まで作り切る力。この価値転換の分岐点に立ったとき、デザイナーとしての方法論そのものを使って、自分の市場価値を問い直すことにした。</p>
+      <div class="keywords">
+        <span class="keyword">Value Shift</span><span class="keyword">Reframing</span>
+        <span class="keyword">Non-linear Career</span><span class="keyword">Design × Management</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE METHOD -->
+<section id="method">
+  <div class="section-label">02 — The Method</div>
+  <div class="method-intro reveal">
+    <h2>顧客ではなく、<br><em>自分自身</em>をリサーチする。</h2>
+    <p>人間中心設計における一次インタビューやニーズマップの発想を自己分析に転用し、20年のキャリアを「経験の長さ」ではなく「市場での希少性」の軸で棚卸しした。実務単体のスキルよりも、複数領域が交差する統合的な力にこそ、経営層が求める価値が宿っていた。</p>
+  </div>
+  <div class="cap-grid reveal">
+    <div class="cap-cell">
+      <div class="cap-num">01 / Design × Management</div>
+      <div class="cap-title">デザイン経営の実装</div>
+      <div class="cap-body">KPI・パーパス・組織文化を「運用できる形式」に変換し、経営アジェンダとデザインを接続する実践知。</div>
+    </div>
+    <div class="cap-cell">
+      <div class="cap-num">02 / AI × Execution</div>
+      <div class="cap-title">AI実装の組織変革化</div>
+      <div class="cap-body">PoCで終わらせず、業務プロセスと意思決定構造まで含めて再設計する。ツール導入ではなく変革として推進する力。</div>
+    </div>
+    <div class="cap-cell">
+      <div class="cap-num">03 / Creative Facilitation</div>
+      <div class="cap-title">創造性のファシリテーション</div>
+      <div class="cap-body">独自メソッドによる共創ワークショップ設計。経営層・現場・技術者のギャップを対話で解消する。</div>
+    </div>
+    <div class="cap-cell">
+      <div class="cap-num">04 / New Business × HCD</div>
+      <div class="cap-title">新規事業とHCDの統合</div>
+      <div class="cap-body">仮説検証から事業化・収益化まで、顧客インサイトを起点に一気通貫で推進するプロセス設計力。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-label">03 — The Roadmap</div>
+  <div class="method-intro reveal" style="margin-bottom:56px;">
+    <h2>時間軸で見る、<br><em>価値転換</em>のシナリオ。</h2>
+  </div>
+  <div class="tl reveal">
+    <div class="tl-item">
+      <div class="tl-stage">Now</div>
+      <div class="tl-title">実務リーダー</div>
+      <div class="tl-body">デザイン戦略の実務リーダーとして、AI×共創を軸にクライアント組織の変革を支援する。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-stage">Next</div>
+      <div class="tl-title">経営に接続する</div>
+      <div class="tl-body">事業視点とP&amp;L感覚を伴う意思決定の現場で、デザインの力を経営アジェンダそのものに接続する。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-stage">Then</div>
+      <div class="tl-title">経営を担う</div>
+      <div class="tl-body">組織全体のデザイン経営を統括し、AI時代の事業変革に対して実行責任を持つ立場へ。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-stage">Beyond</div>
+      <div class="tl-title">自らの手で創る</div>
+      <div class="tl-body">培った知見・ネットワーク・個人ブランドを結集し、新しい価値そのものを生み出す。</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="section-label">04 — Proof Points</div>
+  <div class="proof-intro reveal">
+    <h2>思考だけでなく、<br><em style="font-style:italic">結果</em>で語る。</h2>
+    <p>この再設計は机上の仮説ではない。これまでの実務の中で、すでに小さな検証を積み重ねてきた。</p>
+  </div>
+  <div class="proof-grid reveal">
+    <div class="proof-cell">
+      <div class="proof-label">PMF Verification</div>
+      <div class="proof-val">CV 4.6%</div>
+      <div class="proof-sub">短期テストマーケティングで業界平均を大きく上回る事業性を実証</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-label">AI Change Management</div>
+      <div class="proof-val">-30%</div>
+      <div class="proof-sub">生成AI活用による要件定義工数の削減</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-label">Crowdfunding</div>
+      <div class="proof-val">500万円+</div>
+      <div class="proof-sub">Makuakeで目標達成し量産化を確立</div>
+    </div>
+    <div class="proof-cell dark">
+      <div class="proof-label">Design Award</div>
+      <div class="proof-val">2 &times;</div>
+      <div class="proof-sub">グッドデザイン賞 受賞</div>
+    </div>
+    <div class="proof-cell dark">
+      <div class="proof-label">Co-Creation</div>
+      <div class="proof-val">wemake</div>
+      <div class="proof-sub">最優秀賞含む複数受賞</div>
+    </div>
+    <div class="proof-cell dark">
+      <div class="proof-label">Thought Leadership</div>
+      <div class="proof-val">登壇 / 学会</div>
+      <div class="proof-sub">DesignShip 2025 登壇、HCD学会での発表</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="closing-big reveal">この先も、<br>同じ方法で<em>問い</em>続ける。</div>
+  <p class="closing-body reveal">実行者としてのデザイナーではなく、問いを定義し、組織に意思決定させ、実行体制までつくる経営人材として。次の挑戦を探しています。</p>
+  <div class="closing-links reveal">
+    <a href="takebon_profile.html" class="closing-link">View Full Profile &rarr;</a>
+    <a href="index.html#contact" class="closing-link">Get in Touch &rarr;</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 TAKEBON &mdash; Akinori Takenaka</p>
+  <p>Design Strategist &times; AI Innovator &times; Co-Creator</p>
+</footer>
+
+<script>
+// Cursor
+var cursor = document.getElementById('cursor');
+var trail  = document.getElementById('cursorTrail');
+document.addEventListener('mousemove', function(e) {
+  cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+  setTimeout(function(){ trail.style.left = e.clientX + 'px'; trail.style.top = e.clientY + 'px'; }, 80);
+});
+document.querySelectorAll('a,button,.color-dot').forEach(function(el){
+  el.addEventListener('mouseenter', function(){ cursor.classList.add('expand'); });
+  el.addEventListener('mouseleave', function(){ cursor.classList.remove('expand'); });
+});
+// Hamburger
+var ham = document.getElementById('hamburger');
+var nav = document.getElementById('sidenav');
+var ovl = document.getElementById('overlay');
+ham.addEventListener('click', function(){ ham.classList.toggle('open'); nav.classList.toggle('open'); ovl.classList.toggle('visible'); });
+ovl.addEventListener('click', function(){ ham.classList.remove('open'); nav.classList.remove('open'); ovl.classList.remove('visible'); });
+document.querySelectorAll('.sidenav a').forEach(function(l){
+  l.addEventListener('click', function(){ ham.classList.remove('open'); nav.classList.remove('open'); ovl.classList.remove('visible'); });
+});
+// Progress
+var pb = document.getElementById('progressBar');
+window.addEventListener('scroll', function(){ var d=document.body.scrollHeight-window.innerHeight; if(d>0) pb.style.width=(window.scrollY/d*100)+'%'; });
+// Color
+document.querySelectorAll('.color-dot').forEach(function(dot){
+  dot.addEventListener('click', function(){
+    document.documentElement.style.setProperty('--accent', dot.dataset.color);
+    document.querySelectorAll('.color-dot').forEach(function(d){ d.classList.remove('active'); });
+    dot.classList.add('active');
+  });
+});
+// Reveal
+var revObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+}, {threshold:0.08, rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ revObs.observe(el); });
+</script>
+</body>
+</html>
